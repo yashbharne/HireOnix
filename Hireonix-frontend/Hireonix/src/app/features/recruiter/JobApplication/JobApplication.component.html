@@ -1,0 +1,50 @@
+<div class="p-6">
+  <h2 class="text-2xl font-semibold mb-4">Job Applications</h2>
+
+  <div *ngIf="applications.length === 0" class="text-gray-500">
+    No applications yet.
+  </div>
+
+  <div
+    *ngFor="let app of applications"
+    class="bg-white p-4 shadow rounded-lg mb-4"
+  >
+    <div
+      [routerLink]="['/recruiter/application/candidate/', app._id]"
+      class="flex justify-between items-center"
+    >
+      <div>
+        <p class="text-sm text-gray-600 mb-1">
+          <span class="font-medium">Application ID:</span> {{ app._id }}
+        </p>
+        <p class="text-sm text-gray-600 mb-1">
+          <span class="font-medium">Candidate:</span>
+          {{ app.candidateId.name }}
+        </p>
+        <p class="text-sm text-gray-600 mb-1">
+          <span class="font-medium">ATS Score:</span> {{ app.atsScore }}%
+        </p>
+        <p class="text-sm text-gray-600 mb-1">
+          <span class="font-medium">Status:</span> {{ app.status | titlecase }}
+        </p>
+        <p class="text-sm text-gray-600">
+          <span class="font-medium">Applied On:</span>
+          {{ app.createdAt | date : "medium" }}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <a
+          class="text-blue-600 font-semibold hover:underline"
+          [href]="app.resumeUrl"
+          target="_blank"
+          rel="noopener"
+        >
+          View Resume
+        </a>
+        <!-- Optional actions in future -->
+        <!-- <button class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Accept</button> -->
+      </div>
+    </div>
+  </div>
+</div>

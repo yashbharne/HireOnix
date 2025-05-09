@@ -1,0 +1,51 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-semibold mb-4">Candidate Application Detail</h2>
+
+  <div class="bg-white shadow rounded-lg p-4">
+    <div class="mb-4">
+      <p><span class="font-semibold">Candidate:</span> {{ application?.candidateId.name }}</p>
+      <p><span class="font-semibold">Email:</span> {{ application?.candidateId.email }}</p>
+      <p><span class="font-semibold">Status:</span> {{ application?.status | titlecase }}</p>
+      <p><span class="font-semibold">ATS Score:</span> {{ application?.atsScore }}%</p>
+      <p><span class="font-semibold">Applied On:</span> {{ application?.createdAt | date:'medium' }}</p>
+      <a
+        class="text-blue-600 hover:underline mt-2 inline-block"
+        [href]="application?.resumeUrl"
+        target="_blank"
+        >View Resume</a
+      >
+    </div>
+
+    <div class="flex gap-4 mb-6">
+      <button
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        (click)="updateStatus('shortlisted')"
+      >
+        Shortlist
+      </button>
+      <button
+        class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        (click)="updateStatus('rejected')"
+      >
+        Reject
+      </button>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold mb-2">Schedule Interview</h3>
+      <form [formGroup]="interviewForm" (ngSubmit)="scheduleInterview()" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <input type="date" formControlName="date" class="input" />
+        <input type="time" formControlName="time" class="input" />
+        <input type="text" formControlName="mode" placeholder="Mode (Online / In-person)" class="input" />
+        <textarea formControlName="notes" placeholder="Notes (optional)" class="input col-span-2"></textarea>
+        <button
+          type="submit"
+          [disabled]="interviewForm.invalid"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 col-span-2 w-fit"
+        >
+          Schedule
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

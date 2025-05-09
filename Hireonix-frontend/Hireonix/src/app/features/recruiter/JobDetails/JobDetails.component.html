@@ -1,0 +1,47 @@
+<div
+  *ngIf="job"
+  class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8"
+>
+  <div class="flex justify-between">
+    <h1 class="text-2xl font-semibold mb-2">{{ job.title }}</h1>
+    <button>Total applicant {{ job.TotalApplicants }}</button>
+  </div>
+  <button
+    [routerLink]="[`/recruiter/job/applications/${job._id}`]"
+    type="button"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    View All Applicants
+  </button>
+
+  <p class="text-gray-600 mb-4">{{ job.location }} • {{ job.jobType }}</p>
+
+  <div class="mb-4">
+    <h2 class="font-semibold text-lg">Description</h2>
+    <p class="text-gray-700 mt-2">{{ job.description }}</p>
+  </div>
+
+  <div class="mb-4">
+    <h2 class="font-semibold text-lg">Experience Required</h2>
+    <p class="text-gray-700 mt-1">{{ job.experience }}</p>
+  </div>
+
+  <div class="mb-4">
+    <h2 class="font-semibold text-lg">Salary Range</h2>
+    <p class="text-gray-700 mt-1">
+      ₹{{ job.salaryRange.min | number }} - ₹{{ job.salaryRange.max | number }}
+    </p>
+  </div>
+
+  <div>
+    <h2 class="font-semibold text-lg mb-1">Skills Required</h2>
+    <div class="flex flex-wrap gap-2">
+      <span
+        *ngFor="let skill of job.skills"
+        class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+      >
+        {{ skill }}
+      </span>
+    </div>
+  </div>
+</div>
